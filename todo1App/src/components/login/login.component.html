@@ -1,0 +1,55 @@
+<ion-content>
+
+  <div class="center full-height-viewport">
+
+    <div>
+
+      <div class="center">
+
+        <img class="logo" src="assets/img/logo.png" />
+
+      </div>
+    
+      <form class="form" [formGroup]="loginForm">
+    
+        <mat-form-field class="full-width input-space">
+
+          <mat-label>{{ 'user' | translate}}</mat-label>
+
+          <input type="text" matInput 
+          [errorStateMatcher]="matcher" formControlName="user">
+
+          <mat-error *ngIf="loginForm.get('user').hasError('email') && 
+          !loginForm.get('user').hasError('required')">
+            {{ 'invalid_email' | translate}}
+          </mat-error>
+
+          <mat-error *ngIf="loginForm.get('user').hasError('required')">
+            {{ 'required_field' | translate}}
+          </mat-error>
+
+        </mat-form-field>
+    
+        <mat-form-field class="full-width input-space">
+
+          <mat-label>{{ 'password' | translate}}</mat-label>
+
+          <input type="password" matInput 
+          [errorStateMatcher]="matcher" formControlName="password">
+          
+          <mat-error *ngIf="loginForm.get('password').hasError('required')">
+            {{ 'required_field' | translate}}
+          </mat-error>
+
+        </mat-form-field>
+    
+        <button class="full-width" [disabled]="!loginForm.valid" (click)="signIn()"  
+        mat-raised-button color="primary">{{ 'sign_in' | translate}}</button>
+        
+      </form>
+
+    </div>
+
+  </div>
+
+</ion-content>

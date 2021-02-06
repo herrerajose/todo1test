@@ -1,0 +1,149 @@
+<ion-header>
+  <ion-toolbar class="background_color">
+    <ion-buttons slot="start">
+      <ion-menu-button class="color-white"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="toolbar-title">{{ 'menu_send_transfer' | translate}}</ion-title>
+    <ion-buttons slot="end" (click)="openPopover($event)">
+        <fa-icon class="toolbar-icon" icon = ellipsis-v></fa-icon>
+    </ion-buttons> 
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <form class="form" [formGroup]="transferForm">
+
+    <mat-form-field class="full-width input-space">
+
+      <mat-label>{{ 'accountO' | translate}}</mat-label>
+
+      <input type="text" matInput 
+      [errorStateMatcher]="matcher" formControlName="accountO">
+      
+      <mat-error *ngIf="transferForm.get('accountO').hasError('required')">
+        {{ 'required_field' | translate}}
+      </mat-error>
+
+    </mat-form-field>
+
+    <mat-form-field class="full-width input-space">
+
+      <mat-label>{{ 'nameD' | translate}}</mat-label>
+
+      <input type="text" matInput 
+      [errorStateMatcher]="matcher" formControlName="nameD">
+      
+      <mat-error *ngIf="transferForm.get('nameD').hasError('required')">
+        {{ 'required_field' | translate}}
+      </mat-error>
+
+    </mat-form-field>
+    
+    <mat-form-field class="full-width input-space">
+
+      <mat-label>{{ 'emailD' | translate}}</mat-label>
+
+      <input type="email" matInput 
+      [errorStateMatcher]="matcher" formControlName="emailD">
+
+      <mat-error *ngIf="transferForm.get('emailD').hasError('email') && 
+      !transferForm.get('emailD').hasError('required')">
+        {{ 'invalid_email' | translate}}
+      </mat-error>
+
+      <mat-error *ngIf="transferForm.get('emailD').hasError('required')">
+        {{ 'required_field' | translate}}
+      </mat-error>
+
+    </mat-form-field>
+
+    <mat-form-field class="full-width input-space">
+
+      <mat-label>{{ 'phoneD' | translate}}</mat-label>
+
+      <input type="number" matInput 
+      [errorStateMatcher]="matcher" formControlName="phoneD">
+      
+      <mat-error *ngIf="transferForm.get('phoneD').hasError('required')">
+        {{ 'required_field' | translate}}
+      </mat-error>
+
+    </mat-form-field>
+
+    <mat-form-field class="full-width input-space">
+
+      <mat-label>{{ 'accountD' | translate}}</mat-label>
+
+      <input type="text" matInput 
+      [errorStateMatcher]="matcher" formControlName="accountD">
+      
+      <mat-error *ngIf="transferForm.get('accountD').hasError('required')">
+        {{ 'required_field' | translate}}
+      </mat-error>
+
+    </mat-form-field>
+
+    <mat-form-field class="full-width input-space">
+
+      <mat-label>{{ 'currency' | translate}}</mat-label>
+
+      <input type="number" matInput 
+      [errorStateMatcher]="matcher" formControlName="currency">
+      
+      <mat-error *ngIf="transferForm.get('currency').hasError('required')">
+        {{ 'required_field' | translate}}
+      </mat-error>
+
+    </mat-form-field>
+
+    <mat-form-field class="full-width input-space">
+
+      <mat-label>{{ 'amount' | translate}}</mat-label>
+
+      <input type="number" matInput 
+      [errorStateMatcher]="matcher" formControlName="amount">
+      
+      <mat-error *ngIf="transferForm.get('amount').hasError('required')">
+        {{ 'required_field' | translate}}
+      </mat-error>
+
+    </mat-form-field>
+
+    <mat-form-field class="full-width input-space">
+
+      <mat-label>{{ 'description' | translate}}</mat-label>
+
+      <input type="text" matInput 
+      [errorStateMatcher]="matcher" formControlName="description">
+      
+      <mat-error *ngIf="transferForm.get('description').hasError('required')">
+        {{ 'required_field' | translate}}
+      </mat-error>
+
+    </mat-form-field>
+
+    <button class="full-width input-space" [disabled]="!transferForm.valid" (click)="sendTransfer()"  
+    mat-raised-button color="primary">{{ 'send_transfer' | translate}}</button>
+
+    <button class="full-width input-space" [disabled]="!transferForm.valid" (click)="generateQR()"  
+    mat-raised-button color="primary">{{ 'generate_qr' | translate}}</button>
+    
+  </form>
+
+  <ngx-qrcode [elementType]="elementType" [value]="stringQR"></ngx-qrcode>
+
+  <button class="full-width input-space" (click)="saveQR()"  
+    mat-raised-button color="primary">{{ 'save_qr' | translate}}</button>
+  
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="scanCode()">
+
+    <ion-fab-button>
+
+      <fa-icon  class="full-width increase-size" [icon]="['fas', 'qrcode']" ></fa-icon>
+
+    </ion-fab-button>
+
+  </ion-fab>
+
+</ion-content>

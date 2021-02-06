@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar class="background_color">
+    <ion-buttons slot="start">
+      <ion-menu-button class="color-white"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="toolbar-title">{{ 'menu_account_detail' | translate}}</ion-title>
+    <ion-buttons slot="end" (click)="openPopover($event)">
+        <fa-icon class="toolbar-icon" icon = ellipsis-v></fa-icon>
+    </ion-buttons> 
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list [@staggerIn]="bankAccount.$transactionList">
+
+    <div (click)="consultBankAccountInformation(bankAccount)"  
+    *ngFor="let transaction of bankAccount.$transactionList" class="shadow">
+
+      <div>
+
+        <div class="display-container">
+
+          <div class="f-container" >
+
+            <div class="bank-account-id">{{ 'transaction_description' | translate}} {{transaction.$transactionDescription}}</div>
+
+            <div class="display-container">
+
+              <div class="bank-account-value">{{transaction.$transactionValue}} $</div>         
+            
+            </div>
+
+          </div>
+
+          <div class="s-container">
+            
+            <fa-icon *ngIf="transaction.$transactionType == 'addition'" class="full-width" 
+            [icon]="['fas', 'arrow-circle-up']" ></fa-icon>
+
+            <fa-icon *ngIf="transaction.$transactionType == 'subtraction'" class="full-width" 
+            [icon]="['fas', 'arrow-circle-down']" ></fa-icon>
+
+          </div>
+
+        </div> 
+
+        <div class="display-container">
+          
+          <div  class="bank-account-type">{{ 'transaction_date' | translate}} {{transaction.$transactionDate}}</div>      
+
+        </div>
+      
+      </div>     
+
+    </div>
+
+</ion-list>
+  
+</ion-content>

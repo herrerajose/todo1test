@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-toolbar class="background_color">
+    <ion-buttons slot="start">
+      <ion-menu-button class="color-white"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="toolbar-title">{{ 'menu_option_weather' | translate}}</ion-title>
+    <ion-buttons slot="end" (click)="openPopover($event)">
+        <fa-icon class="toolbar-icon" icon = ellipsis-v></fa-icon>
+    </ion-buttons> 
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div class="full-height-viewport full-width-viewport properties" [ngStyle]="{'background-image': 'url('+ urlImage +')'}">
+    
+    <div class="letter-blue full-width top-space">
+
+      <div class="text-center primary-text">
+        {{ temp }}°
+      </div>
+  
+      <div class="text-center secondary-text">
+        {{ description }}
+      </div>
+  
+      <div class="">
+  
+        <div class="label-container">
+          <div class="text-left left-label">
+            {{ 'temp_max' | translate}}
+          </div>
+          <div class="text-right right-label">
+            {{ temp_max }} °C
+          </div>    
+        </div> 
+  
+        <div class="label-container">
+          <div class="text-left left-label">
+            {{ 'temp_min' | translate}}
+          </div>
+          <div class="text-right right-label">
+            {{ temp_min }} °C
+          </div>    
+        </div>
+  
+        <div class="label-container">
+          <div class="text-left left-label">
+            {{ 'humidity' | translate}}
+          </div>
+          <div class="text-right right-label">
+            {{ humidity }} %
+          </div>    
+        </div>
+  
+        <div class="label-container">
+          <div class="text-left left-label">
+            {{ 'pressure' | translate}}
+          </div>
+          <div class="text-right right-label">
+            {{ pressure }} HPa
+          </div>    
+        </div>
+  
+      </div>
+      
+    </div>
+
+  </div>
+
+</ion-content>

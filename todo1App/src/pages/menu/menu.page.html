@@ -1,0 +1,46 @@
+<ion-menu contentId="content">
+
+  <ion-header>
+    <ion-toolbar class="background_color"> 
+        <ion-title class="toolbar-title">{{ todo1 | translate}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+
+    <div *ngFor="let page of pages">
+
+      <ion-menu-toggle *ngIf="page.url">
+        <ion-item [routerLink]="page.url" routerDirection="root" routerLinkActive="active">
+          <fa-icon icon = {{page.icon}}></fa-icon>
+          <ion-label class="options">
+            {{ page.title | translate}}
+          </ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+
+      <ion-item button *ngIf="page.children?.length > 0"  (click)="page.open = !page.open" 
+        [class.active-parent]="page.open" detail="false">
+        <fa-icon icon = "{{page.icon}}"></fa-icon>
+        <ion-label class="options">{{ page.title | translate}}</ion-label>
+        <fa-icon class="options-icon" slot="end" icon = "chevron-right" *ngIf="!page.open"></fa-icon>
+        <fa-icon class="options-icon" slot="end" icon = "chevron-down" *ngIf="page.open"></fa-icon>
+      </ion-item>
+
+      <ion-list *ngIf="page.open">
+        <ion-menu-toggle *ngFor="let sub of page.children">
+          <ion-item [routerLink]="sub.url" routerDirection="root" routerLinkActive="active">
+            <ion-label class="sub-options">
+              {{ sub.title | translate}}
+            </ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+
+    </div>
+
+  </ion-content>
+
+</ion-menu>
+
+<ion-router-outlet id="content" home></ion-router-outlet>

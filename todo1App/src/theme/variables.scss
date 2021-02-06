@@ -1,0 +1,254 @@
+// Ionic Variables and Theming. For more info, please see:
+// http://ionicframework.com/docs/theming/
+
+/** Ionic CSS Variables **/
+:root {
+  /** primary **/
+  --ion-color-primary: #043371;
+  --ion-color-primary-rgb: 56, 128, 255;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #3171e0;
+  --ion-color-primary-tint: #4c8dff;
+
+  /** secondary **/
+  --ion-color-secondary: #3dc2ff;
+  --ion-color-secondary-rgb: 61, 194, 255;
+  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-contrast-rgb: 255, 255, 255;
+  --ion-color-secondary-shade: #36abe0;
+  --ion-color-secondary-tint: #50c8ff;
+
+  /** tertiary **/
+  --ion-color-tertiary: #5260ff;
+  --ion-color-tertiary-rgb: 82, 96, 255;
+  --ion-color-tertiary-contrast: #ffffff;
+  --ion-color-tertiary-contrast-rgb: 255, 255, 255;
+  --ion-color-tertiary-shade: #4854e0;
+  --ion-color-tertiary-tint: #6370ff;
+
+  /** success **/
+  --ion-color-success: #2dd36f;
+  --ion-color-success-rgb: 45, 211, 111;
+  --ion-color-success-contrast: #ffffff;
+  --ion-color-success-contrast-rgb: 255, 255, 255;
+  --ion-color-success-shade: #28ba62;
+  --ion-color-success-tint: #42d77d;
+
+  /** warning **/
+  --ion-color-warning: #ffc409;
+  --ion-color-warning-rgb: 255, 196, 9;
+  --ion-color-warning-contrast: #000000;
+  --ion-color-warning-contrast-rgb: 0, 0, 0;
+  --ion-color-warning-shade: #e0ac08;
+  --ion-color-warning-tint: #ffca22;
+
+  /** danger **/
+  --ion-color-danger: #eb445a;
+  --ion-color-danger-rgb: 235, 68, 90;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-contrast-rgb: 255, 255, 255;
+  --ion-color-danger-shade: #cf3c4f;
+  --ion-color-danger-tint: #ed576b;
+
+  /** dark **/
+  --ion-color-dark: #222428;
+  --ion-color-dark-rgb: 34, 36, 40;
+  --ion-color-dark-contrast: #ffffff;
+  --ion-color-dark-contrast-rgb: 255, 255, 255;
+  --ion-color-dark-shade: #1e2023;
+  --ion-color-dark-tint: #383a3e;
+
+  /** medium **/
+  --ion-color-medium: #92949c;
+  --ion-color-medium-rgb: 146, 148, 156;
+  --ion-color-medium-contrast: #ffffff;
+  --ion-color-medium-contrast-rgb: 255, 255, 255;
+  --ion-color-medium-shade: #808289;
+  --ion-color-medium-tint: #9d9fa6;
+
+  /** light **/
+  --ion-color-light: #f4f5f8;
+  --ion-color-light-rgb: 244, 245, 248;
+  --ion-color-light-contrast: #000000;
+  --ion-color-light-contrast-rgb: 0, 0, 0;
+  --ion-color-light-shade: #d7d8da;
+  --ion-color-light-tint: #f5f6f9;
+
+  .center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .text-left {
+    text-align: left;
+  }
+
+  .text-right {
+    text-align: right;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+
+  .full-width {
+    width: 100%;
+  }
+
+  .form {
+    padding: 30px;
+  }
+
+  .logo {
+    width: 100px;
+    height: 100px;
+  }
+
+  .full-height-viewport {
+    height: 100vh;
+  }
+
+  .full-width-viewport {
+    width: 100vw;
+  }
+
+  .input-space {
+    margin-bottom: 5px;
+  }
+
+  .options {
+    font-weight: bold;
+    font-size: 14px !important;
+    margin-left: 20px;
+  }
+
+  .background_color {
+    --background: #043371;
+  }
+
+  .toolbar-title {
+    text-align: center;
+    font-size: 14px;
+    color: white !important;
+  }
+
+  .color-white {
+    color: white;}
+
+  .toolbar-icon {
+    font-size: 14px;
+    padding-left: 16px;
+    padding-right: 16px;
+    color: white;
+    cursor: pointer;
+  }
+
+  .sub-options {
+    font-size: 13px !important;
+    margin-left: 10px;
+  }
+
+  .options-icon {
+    color: black !important;
+    font-size: 14px !important;
+  }
+
+  .letter-blue {
+    color: #043371;
+  }
+
+  .left-label {
+    width: 70%;
+    font-size: 20px;
+  }
+
+  .right-label {
+    width: 30%;
+    font-size: 20px;
+  }
+
+  .label-container {
+    margin: 15px;
+    border-style: solid;
+    border-width: thin;
+    padding: 10px;
+    display: flex;
+  }
+
+  .primary-text {
+    padding: 10px;
+    font-size: 130px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .secondary-text{
+    padding: 10px;
+    font-size: 40px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: capitalize;
+  }
+
+  .properties {
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .top-space {
+    padding-top: 50px;
+  }
+
+  .shadow {
+    margin: 8px;
+    padding: 10px;
+    box-shadow: 0 4px 5px 0 rgba(143, 124, 124, 0.14), 
+                0 1px 10px 0 rgba(0,0,0,0.12), 
+                0 2px 4px -1px rgba(0,0,0,0.20);
+    border-radius: 4px;
+  }
+
+  .display-container {
+    display: flex;
+  }
+
+  .f-container {
+    width: 85%;
+  }
+
+  .s-container {
+    width: 15%; 
+    font-size: 35px; 
+    color: #043371;
+    text-align: right;
+  }
+
+  .bank-account-id {
+    font-size: 12px;
+    margin-bottom: 5px;
+  }
+
+  .bank-account-value {
+    font-size: 20px; 
+    font-weight: bold; 
+    color: #043371;
+    margin-bottom: 5px;
+  }
+
+  .bank-account-type {
+    font-size: 12px; 
+    font-weight: bold;
+  }
+
+  .increase-size {
+    font-size: 30px; 
+  }
+
+}

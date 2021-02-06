@@ -1,0 +1,44 @@
+{
+    "required_field":"Required Field",
+    "invalid_email":"Please enter a valid email address",
+
+    "user":"User",
+    "password":"Password",
+    "sign_in":"Sign in",
+
+    "menu_option_home":"Home",
+    "menu_account":"Account",
+    "menu_account_detail":"Account Detail",
+    "menu_transfer":"Transfer",
+    "menu_send_transfer":"Send Transfer",
+    "menu_generate_transfer_qr":"Generate QR",
+    "menu_option_weather":"Weather",
+
+    "log_out":"Log out",
+
+    "todo1":"TODO1",
+
+    "temp_max":"Max Temperature",
+    "temp_min":"Min Temperature",
+    "humidity":"Humidity",
+    "pressure":"Pressure",
+
+    "bank_account_id":"Account Number:",
+    "bank_account_type":"Account Type:",
+
+    "transaction_description":"Description:",
+    "transaction_date":"Date:",
+    
+    "accountO":"Origin Account",
+    "nameD":"Destiny Name",
+    "emailD":"Destiny Email",
+    "phoneD":"Destiny Phone",
+    "accountD":"Destiny Account",
+    "currency":"Currency",
+    "amount":"Amount",
+    "description":"Description",
+    "send_transfer":"Send Transfer",
+    "generate_qr":"Generate QR",
+    "save_qr":"Save QR"
+
+}

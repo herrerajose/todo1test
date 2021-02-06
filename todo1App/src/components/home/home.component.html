@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar class="background_color">
+    <ion-buttons slot="start">
+      <ion-menu-button class="color-white"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="toolbar-title">{{ 'menu_option_home' | translate}}</ion-title>
+    <ion-buttons slot="end" (click)="openPopover($event)">
+        <fa-icon class="toolbar-icon" icon = ellipsis-v></fa-icon>
+    </ion-buttons> 
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list [@staggerIn]="user.$bankAccountList">
+
+    <div (click)="consultBankAccountInformation(bankAccount)"  
+    *ngFor="let bankAccount of user.$bankAccountList" class="shadow">
+
+      <div>
+
+        <div class="display-container">
+
+          <div class="f-container" >
+
+            <div class="bank-account-id">{{ 'bank_account_id' | translate}} {{bankAccount.$id}}</div>
+
+            <div class="display-container">
+
+              <div class="bank-account-value">{{bankAccount.$accountValue}} $</div>         
+            
+            </div>
+
+          </div>
+
+          <div class="s-container">
+
+            <fa-icon  class="full-width" [icon]="['fas', 'piggy-bank']" ></fa-icon>
+
+          </div>
+
+        </div> 
+
+        <div class="display-container">
+          
+          <div  class="bank-account-type">{{ 'bank_account_type' | translate}} {{bankAccount.$accountType}}</div>      
+
+        </div>
+      
+      </div>     
+
+    </div>
+
+  </ion-list>
+  
+</ion-content>
