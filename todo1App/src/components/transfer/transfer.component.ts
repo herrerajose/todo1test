@@ -1,10 +1,16 @@
 import { Component, OnInit, Injector } from '@angular/core';
+import { Storage } from "@ionic/storage";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BaseComponent } from '../base/base.component';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { TransferService } from 'src/services/transfer/transfer.service';
 import { Transfer } from 'src/entities/Transfer';
 import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
+import { Key } from 'src/const/key';
+import { Transaction } from 'src/entities/Transaction';
+import { Currencies } from 'src/const/currency';
+import { UserService } from 'src/services/user/user.service';
+import { User } from 'src/entities/User';
 
 @Component({
   selector: 'app-transfer',
@@ -14,12 +20,16 @@ import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
 export class TransferComponent extends BaseComponent implements OnInit {
 
   public formBuilder: FormBuilder = this.injector.get(FormBuilder);
+
+  public storage: Storage = this.injector.get( Storage );
   
   public transferService: TransferService = this.injector.get( TransferService );
 
   public barcodeScanner: BarcodeScanner = this.injector.get( BarcodeScanner );
 
   public base64ToGallery: Base64ToGallery = this.injector.get( Base64ToGallery );
+
+  public userService: UserService = this.injector.get( UserService );
 
   public formAccountOField = this.formBuilder.control('', [Validators.required]);
 
@@ -46,6 +56,12 @@ export class TransferComponent extends BaseComponent implements OnInit {
   public stringQR = '';
 
   public showQRSection: boolean = false;
+
+  public amount: number;
+
+  public currencies: any = Currencies;
+
+  public user: User;
   
   constructor(
     public injector: Injector,
@@ -57,6 +73,8 @@ export class TransferComponent extends BaseComponent implements OnInit {
 
   ngOnInit() 
   {
+    this.getUserInfo();
+    
     this.transferForm = new FormGroup({
       accountO: this.formAccountOField,
       nameD: this.formNameDField,
@@ -79,7 +97,7 @@ export class TransferComponent extends BaseComponent implements OnInit {
     }
     catch ( e )
     {
-     
+      this.presentGenericErrorAlert();
     }
   }
 
@@ -109,7 +127,7 @@ export class TransferComponent extends BaseComponent implements OnInit {
     }
     catch ( e )
     {
-     
+      this.presentGenericErrorAlert();
     }
   }
 
@@ -138,7 +156,7 @@ export class TransferComponent extends BaseComponent implements OnInit {
     }
     catch ( e )
     {
-     
+      this.presentGenericErrorAlert();
     }
   }
 
@@ -168,7 +186,7 @@ export class TransferComponent extends BaseComponent implements OnInit {
     }
     catch ( e )
     {
-     
+      this.presentGenericErrorAlert();
     }
   }
 
@@ -189,7 +207,7 @@ export class TransferComponent extends BaseComponent implements OnInit {
     }
     catch ( e )
     {
-
+      this.presentGenericErrorAlert();
     }
   }
 
@@ -203,7 +221,103 @@ export class TransferComponent extends BaseComponent implements OnInit {
     }
     catch ( e )
     {
-     
+      this.presentGenericErrorAlert();
+    }
+  }
+
+  async convertCurrency()
+  {
+    try
+    { 
+      let res = await this.transferService.getCurrency();
+
+      if (this.formCurrencyField.value == 'USD')
+      {
+        this.amount = this.formAccountOField.value - Math.abs( this.formAmountField.value );
+      }
+      else 
+      {
+        this.amount = this.formAccountOField.value - Math.abs( this.formAmountField.value / res.USD_COP );
+      }
+
+      this.addTransaction();
+    }
+    catch ( e )
+    {
+      this.presentGenericErrorAlert();
+    }
+  }
+
+  async addTransaction()
+  {
+    try
+    { 
+      let userID = await this.storage.get( Key.USER_ID );
+
+      let userToken = await this.storage.get( Key.TOKEN );
+
+      let transaction = new Transaction();
+
+      transaction.$transactionValue = this.formAmountField.value;
+
+      transaction.$transactionDate = new Date();
+
+      transaction.$transactionType = "subtraction"
+
+      transaction.$transactionDescription = this.formDescriptionField.value;
+
+      let res = await this.transferService.addTransaction( userID, userToken, transaction );
+
+      this.updateAccountValue();
+    }
+    catch ( e )
+    {
+      this.presentGenericErrorAlert();
+    }
+  }
+
+  async updateAccountValue()
+  {
+    try
+    { 
+      let userID = await this.storage.get( Key.USER_ID );
+
+      let userToken = await this.storage.get( Key.TOKEN );
+
+      let res = await this.transferService.updateAccountValue( userID, userToken, this.amount );
+    }
+    catch ( e )
+    {
+      this.presentGenericErrorAlert();
+    }
+  }
+
+  processTransaction() {
+    try
+    { 
+      this.convertCurrency();
+    }
+    catch ( e )
+    {
+      this.presentGenericErrorAlert();
+    }
+  }
+
+  async getUserInfo()
+  {
+    try
+    { 
+      let userID = await this.storage.get( Key.USER_ID );
+
+      let userToken = await this.storage.get( Key.TOKEN );
+
+      let res = await this.userService.consultUserInformation( userID, userToken );
+
+      this.user = new User( res );
+    }
+    catch ( e )
+    {
+      this.presentGenericErrorAlert();
     }
   }
 

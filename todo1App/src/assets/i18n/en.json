@@ -40,6 +40,11 @@
     "send_transfer":"Send Transfer",
     "generate_qr":"Generate QR",
     "save_qr":"Save QR",
-    "clean_data":"Clean Data"
+    "clean_data":"Clean Data",
+
+    "error_title":"Error",
+    "error_generic":"Something went wrong, please try again",
+    
+    "error_weather":"if the information is not displayed, check ubication settings"
 
 }

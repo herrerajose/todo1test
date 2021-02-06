@@ -18,8 +18,11 @@
 
       <mat-label>{{ 'accountO' | translate}}</mat-label>
 
-      <input type="text" matInput 
-      [errorStateMatcher]="matcher" formControlName="accountO">
+      <mat-select formControlName="accountO" required>
+        <mat-option *ngFor="let account of user.$bankAccountList" [value]="account">
+          {{account.$id}}
+        </mat-option>
+      </mat-select>
       
       <mat-error *ngIf="transferForm.get('accountO').hasError('required')">
         {{ 'required_field' | translate}}
@@ -88,8 +91,11 @@
 
       <mat-label>{{ 'currency' | translate}}</mat-label>
 
-      <input type="text" matInput 
-      [errorStateMatcher]="matcher" formControlName="currency">
+      <mat-select formControlName="currency" required>
+        <mat-option *ngFor="let currency of currencies" [value]="currency">
+          {{currency}}
+        </mat-option>
+      </mat-select>
       
       <mat-error *ngIf="transferForm.get('currency').hasError('required')">
         {{ 'required_field' | translate}}
@@ -123,7 +129,7 @@
 
     </mat-form-field>
 
-    <button class="full-width input-space" [disabled]="!transferForm.valid" (click)="sendTransfer()"  
+    <button class="full-width input-space" [disabled]="!transferForm.valid" (click)="processTransaction()"  
     mat-raised-button color="primary">{{ 'send_transfer' | translate}}</button>
 
     <button class="full-width input-space" [disabled]="!transferForm.valid" (click)="generateQR()"  

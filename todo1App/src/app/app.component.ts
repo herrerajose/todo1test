@@ -4,13 +4,14 @@ import { TranslateService } from '@ngx-translate/core';
 import { Idle, DEFAULT_INTERRUPTSOURCES } from '@ng-idle/core';
 import { Router } from '@angular/router'
 import { APP_CONFIG } from 'src/const/values';
+import { BaseComponent } from 'src/components/base/base.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent extends BaseComponent {
   
   public timedOut = false;
 
@@ -28,6 +29,7 @@ export class AppComponent {
     public injector: Injector, 
   ) 
   {
+    super(injector);
     this.initializeApp();
   }
 
@@ -44,7 +46,7 @@ export class AppComponent {
     }
     catch ( e )
     {
-
+      this.presentGenericErrorAlert();
     }
   }
 
@@ -66,7 +68,7 @@ export class AppComponent {
     }
     catch ( e )
     {
-
+      this.presentGenericErrorAlert();
     }
   }
 
@@ -110,7 +112,7 @@ export class AppComponent {
     }
     catch ( e )
     {
-
+      this.presentGenericErrorAlert();
     }
   }
 
@@ -123,7 +125,7 @@ export class AppComponent {
     }
     catch ( e )
     {
-
+      this.presentGenericErrorAlert();
     }
   }
 

@@ -59,7 +59,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
     }
     catch ( e )
     {
-     
+      this.presentGenericErrorAlert();
     }
   }
 

@@ -1,15 +1,23 @@
-import { Injectable } from "@angular/core";
+import { Injectable, Injector } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { WSPath, ServicePath } from 'src/const/path';
 import { UserLogin } from 'src/entities/UserLogin';
+import { BaseComponent } from 'src/components/base/base.component';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class UserService extends BaseComponent {
 
-  public constructor( public http: HttpClient ) { }
-
+  public http: HttpClient = this.injector.get( HttpClient );
+  
+  public constructor( 
+    public injector: Injector
+  ) 
+  { 
+    super(injector);
+  }
+  
   public async authenticateUser( user: UserLogin ): Promise<any>
   {
     try
@@ -18,7 +26,7 @@ export class UserService {
     }
     catch ( e )
     {
-
+      this.presentGenericErrorAlert();
     }
   }
 
@@ -30,7 +38,7 @@ export class UserService {
     }
     catch ( e )
     {
-
+      this.presentGenericErrorAlert();
     }
   }
 
