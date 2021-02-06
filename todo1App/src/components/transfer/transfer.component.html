@@ -12,7 +12,7 @@
 
 <ion-content>
 
-  <form class="form" [formGroup]="transferForm">
+  <form *ngIf="!showQRSection" class="form" [formGroup]="transferForm">
 
     <mat-form-field class="full-width input-space">
 
@@ -88,7 +88,7 @@
 
       <mat-label>{{ 'currency' | translate}}</mat-label>
 
-      <input type="number" matInput 
+      <input type="text" matInput 
       [errorStateMatcher]="matcher" formControlName="currency">
       
       <mat-error *ngIf="transferForm.get('currency').hasError('required')">
@@ -131,10 +131,20 @@
     
   </form>
 
-  <ngx-qrcode [elementType]="elementType" [value]="stringQR"></ngx-qrcode>
+  <div *ngIf="showQRSection" class="form">
 
-  <button class="full-width input-space" (click)="saveQR()"  
-    mat-raised-button color="primary">{{ 'save_qr' | translate}}</button>
+    <div class="center">
+      <ngx-qrcode [elementType]="elementType" [value]="stringQR"></ngx-qrcode>
+    </div>
+
+    <button class="full-width input-space" (click)="saveQR()"  
+      mat-raised-button color="primary">{{ 'save_qr' | translate}}</button>
+    
+    <button class="full-width input-space" (click)="cleanData()"  
+    mat-raised-button color="primary">{{ 'clean_data' | translate}}</button>
+
+  </div>
+
   
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="scanCode()">
 

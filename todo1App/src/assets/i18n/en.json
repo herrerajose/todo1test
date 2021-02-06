@@ -39,6 +39,7 @@
     "description":"Description",
     "send_transfer":"Send Transfer",
     "generate_qr":"Generate QR",
-    "save_qr":"Save QR"
+    "save_qr":"Save QR",
+    "clean_data":"Clean Data"
 
 }

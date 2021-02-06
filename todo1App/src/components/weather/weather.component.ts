@@ -42,15 +42,18 @@ export class WeatherComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     this.getCurrentPosition();
-    this.getCurrentWeather();
   }
 
   async getCurrentPosition() {
     try
     { 
       let res = await this.geolocation.getCurrentPosition();
+
       this.latitude = res.coords.latitude;
+
       this.longitude = res.coords.longitude;
+
+      this.getCurrentWeather();
     }
     catch ( e )
     {
@@ -61,13 +64,20 @@ export class WeatherComponent extends BaseComponent implements OnInit {
   async getCurrentWeather() {
     try
     { 
-      let res = await this.weatherService.currentWeather( this.latitude, this.longitude );
+      this.apiResponse = await this.weatherService.currentWeather( this.latitude, this.longitude );
+
       this.temp = Math.trunc(this.apiResponse.main.temp);
+
       this.description = this.apiResponse.weather[0].description;
+
       this.temp_max = this.apiResponse.main.temp_max;
+
       this.temp_min = this.apiResponse.main.temp_min;
+
       this.humidity = this.apiResponse.main.humidity;
+
       this.pressure = this.apiResponse.main.pressure;
+      
       this.backgroundImage( this.apiResponse.weather[0].main );
     }
     catch ( e )
@@ -114,8 +124,6 @@ export class WeatherComponent extends BaseComponent implements OnInit {
     try
     { 
       this.getCurrentPosition();
-      
-      this.getCurrentWeather();
 
       event.target.complete();
     }

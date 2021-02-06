@@ -25,7 +25,7 @@ export class TransferComponent extends BaseComponent implements OnInit {
 
   public formNameDField = this.formBuilder.control('', [Validators.required]);
 
-  public formEmailDField = this.formBuilder.control('', [Validators.required]);
+  public formEmailDField = this.formBuilder.control('', [Validators.required, Validators.email]);
 
   public formPhoneDField = this.formBuilder.control('', [Validators.required]);
 
@@ -44,6 +44,8 @@ export class TransferComponent extends BaseComponent implements OnInit {
   public elementType = 'canvas';
 
   public stringQR = '';
+
+  public showQRSection: boolean = false;
   
   constructor(
     public injector: Injector,
@@ -69,7 +71,16 @@ export class TransferComponent extends BaseComponent implements OnInit {
 
   ionViewWillEnter() 
   {
-    this.transferForm.reset();
+    try
+    { 
+      this.transferForm.reset();
+
+      this.showQRSection = false;
+    }
+    catch ( e )
+    {
+     
+    }
   }
 
   async sendTransfer()
@@ -109,7 +120,7 @@ export class TransferComponent extends BaseComponent implements OnInit {
 
       let res = await this.barcodeScanner.scan( options );
 
-      let tranfer = new Transfer(res);
+      let tranfer = new Transfer( JSON.parse( res.text ) );
 
       this.formNameDField.setValue( tranfer.$destinyName );
 
@@ -152,6 +163,8 @@ export class TransferComponent extends BaseComponent implements OnInit {
       tranfer.$description = this.formDescriptionField.value;
 
       this.stringQR = JSON.stringify( tranfer );
+
+      this.showQRSection = true;
     }
     catch ( e )
     {
@@ -167,9 +180,26 @@ export class TransferComponent extends BaseComponent implements OnInit {
 
       const base64Data = canvas.toDataURL( 'image/jpeg' ).toString();
 
-      await this.base64ToGallery.base64ToGallery( base64Data.split(',')[1], { prefix: '_img', mediaScanner: true } );
+      let imageToSave = base64Data.split(',')[1];
 
-      this.presentAlert( 'Success', 'QR code saved')
+      console.log(imageToSave)
+
+      await this.base64ToGallery.base64ToGallery( imageToSave, { prefix: '_img', mediaScanner: true } );
+
+    }
+    catch ( e )
+    {
+
+    }
+  }
+
+  async cleanData()
+  {
+    try
+    { 
+      this.transferForm.reset();
+
+      this.showQRSection = false;
     }
     catch ( e )
     {
