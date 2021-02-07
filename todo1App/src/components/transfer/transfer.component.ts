@@ -1,8 +1,10 @@
 import { Component, OnInit, Injector } from '@angular/core';
 import { Storage } from "@ionic/storage";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ToastController } from '@ionic/angular';
 import { BaseComponent } from '../base/base.component';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { TransferService } from 'src/services/transfer/transfer.service';
 import { Transfer } from 'src/entities/Transfer';
 import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
@@ -11,6 +13,7 @@ import { Transaction } from 'src/entities/Transaction';
 import { Currencies } from 'src/const/currency';
 import { UserService } from 'src/services/user/user.service';
 import { User } from 'src/entities/User';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-transfer',
@@ -28,6 +31,12 @@ export class TransferComponent extends BaseComponent implements OnInit {
   public barcodeScanner: BarcodeScanner = this.injector.get( BarcodeScanner );
 
   public base64ToGallery: Base64ToGallery = this.injector.get( Base64ToGallery );
+
+  public androidPermissions: AndroidPermissions = this.injector.get( AndroidPermissions );
+  
+  public toastCtrl: ToastController = this.injector.get( ToastController );
+  
+  public translateService: TranslateService = this.injector.get( TranslateService );
 
   public userService: UserService = this.injector.get( UserService );
 
@@ -68,11 +77,18 @@ export class TransferComponent extends BaseComponent implements OnInit {
   ) 
   { 
     super(injector);
+    this.user = new User();
     this.tranfer = new Transfer();
   }
 
   ngOnInit() 
   {
+    
+    this.androidPermissions.requestPermissions([
+      this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE, 
+      this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE
+    ]);
+
     this.getUserInfo();
     
     this.transferForm = new FormGroup({
@@ -194,20 +210,28 @@ export class TransferComponent extends BaseComponent implements OnInit {
   {
     try
     { 
+      await this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE);
+
+      await this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE);
+
       const canvas = document.querySelector( 'canvas' ) as HTMLCanvasElement;
 
       const base64Data = canvas.toDataURL( 'image/jpeg' ).toString();
 
       let imageToSave = base64Data.split(',')[1];
 
-      console.log(imageToSave)
-
       await this.base64ToGallery.base64ToGallery( imageToSave, { prefix: '_img', mediaScanner: true } );
 
+      this.presentToastSuccess();
     }
     catch ( e )
     {
       this.presentGenericErrorAlert();
+      
+      this.androidPermissions.requestPermissions([
+        this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE, 
+        this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE
+      ]);
     }
   }
 
@@ -321,4 +345,17 @@ export class TransferComponent extends BaseComponent implements OnInit {
     }
   }
 
+  async presentToastSuccess() {
+
+    let translation = this.translateService.instant('success_gallery');
+
+    const toast = await this.toastCtrl.create({
+      message: translation,
+      duration: 3000,
+      color: 'primary',
+    });
+
+    toast.present();
+
+  }
 }

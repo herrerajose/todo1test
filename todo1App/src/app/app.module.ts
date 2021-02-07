@@ -43,11 +43,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
 
 import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
-
+import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 export function HttpLoaderFactory( http: HttpClient )
@@ -98,6 +99,7 @@ export function HttpLoaderFactory( http: HttpClient )
     BrowserAnimationsModule,
     MatInputModule,
     MatButtonModule,
+    MatSelectModule,
     NgxQRCodeModule
   ],
   providers: [
@@ -116,7 +118,8 @@ export function HttpLoaderFactory( http: HttpClient )
     },
     Base64ToGallery,
     BarcodeScanner,
-    Geolocation
+    Geolocation,
+    AndroidPermissions
   ],
   bootstrap: [
     AppComponent

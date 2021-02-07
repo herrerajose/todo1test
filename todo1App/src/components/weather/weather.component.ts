@@ -165,7 +165,7 @@ export class WeatherComponent extends BaseComponent implements OnInit {
 
     const toast = await this.toastCtrl.create({
       message: translation,
-      duration: 2000,
+      duration: 5000,
       color: 'primary',
     });
 

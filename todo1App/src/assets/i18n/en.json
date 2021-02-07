@@ -45,6 +45,8 @@
     "error_title":"Error",
     "error_generic":"Something went wrong, please try again",
     
-    "error_weather":"if the information is not displayed, check ubication settings"
+    "error_weather":"if the information is not displayed, check ubication settings",
+    
+    "success_gallery":"Qr code stored successfully"
 
 }
